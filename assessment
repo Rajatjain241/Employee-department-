@@ -1,0 +1,228 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define max 20
+
+// Structure of Employee
+struct employee
+{
+	string name;
+	long int code;
+	string department;
+	int age;
+};
+
+int num;
+void showMenu();   // Function declaration
+void show();       // Table view
+
+employee emp[max];
+
+
+void build()
+{
+	cout << "Build The Table\n";
+	cout << "Maximum Entries can be "<< max << "\n";
+
+	cout << "Enter the number of Entries required ";
+	cin >> num;
+
+	if (num > 20)
+	{
+		cout << "Maximum number of Entries are 20\n";
+		num = 20;
+	}
+	cout << "Enter the following data:\n";
+
+	for (int i = 0; i < num; i++)
+	{
+		cout << "Name ";
+		cin  >> emp[i].name;
+
+		cout << "Employee ID ";
+		cin  >> emp[i].code;
+
+		cout << "Department ";
+		cin  >> emp[i].department;
+
+		cout << "Age ";
+		cin  >> emp[i].age;
+
+		cout << "Employee has been added successfully\n";
+	}
+
+	show();
+	showMenu();
+}
+
+// Function to insert the data into given data type
+void insert()
+{
+	if (num < max)
+	{
+		int i = num;
+		num++;
+
+		cout << "Enter the information of the Employee\n";
+		cout << "Name ";
+		cin >> emp[i].name;
+
+		cout << "Employee ID ";
+		cin >> emp[i].code;
+
+		cout << "Department ";
+		cin >> emp[i].department;
+
+		cout << "Age ";
+		cin >> emp[i].age;
+	}
+	else
+	{
+		cout << "Employee Table Full\n";
+	}
+
+	show();
+	showMenu();
+}
+
+// Function to delete record at index i
+void deleteIndex(int i)
+{
+	for (int j = i; j < num - 1; j++)
+	{
+		emp[j].name = emp[j+1].name;
+		emp[j].code = emp[j+1].code;
+		emp[j].department = emp[j+1].department;
+		emp[j].age = emp[j+1].age;
+	}
+	return;
+}
+
+// Function to delete record
+void deleteRecord()
+{
+	int code;
+	cout << "Enter the Employee ID to Delete Record";
+	cin >> code;
+	for (int i = 0; i < num; i++)
+	{
+		if (emp[i].code == code)
+		{
+			deleteIndex(i);
+			num--;
+			break;
+		}
+	}
+
+	show();
+	showMenu();
+}
+
+// Function to search record
+void searchRecord()
+{
+	int code;
+	cout << "Enter the Employee ID to Search Record";
+	cin >> code;
+
+	for (int i = 0; i < num; i++)
+	{
+
+		// If the data is found
+		if (emp[i].code == code)
+		{
+			cout << "Name "<< emp[i].name << "\n";
+			cout << "Employee ID "<< emp[i].code << "\n";
+			cout << "Department "<< emp[i].department << "\n";
+			cout << "Age "<< emp[i].age << "\n";
+			break;
+		}
+	}
+
+	showMenu();
+}
+
+void empdep()
+{
+	int code;
+	cout << "Enter the Employee ID ";
+	cin >> code;
+
+	for (int i = 0; i < num; i++)
+	{
+		// If the data is found
+		if (emp[i].code == code)
+		{
+			cout << "Enter the new department ";
+			cin  >> emp[i].department;
+			break;
+		}
+	}
+
+	show();
+	showMenu();
+}
+
+
+void show()
+{
+	cout << "Employee_Name\t\tEmployee_Id\t\tAge\t\tDepartment\n\n";
+	for(int i=0;i<num;i++)
+	{
+		cout << emp[i].name<<"\t\t\t"<<emp[i].code<<"\t\t\t"<<emp[i].age<<"\t\t\t"<<emp[i].department<<endl;
+	}
+
+	showMenu();
+}
+
+// Function to show menu
+void showMenu()
+{
+	cout << "\n\nAvailable Options:\n\n";
+	cout << "(1)Build Table\n";
+	cout << "(2)Insert New Entry\n";
+	cout << "(3)Delete Entry\n";
+	cout << "(4)Search a Record\n";
+	cout << "(5)Change the department of an employee\n";
+	cout << "(6)Exit\n";
+
+	int option;
+
+	cin >> option;
+
+	if (option == 1)
+	{
+		build();
+	}
+	else if (option == 2)
+	{
+		insert();
+	}
+	if (option == 3)
+	{
+		deleteRecord();
+	}
+	else if (option == 4)
+	{
+		searchRecord();
+	}
+	else if (option == 5)
+	{
+		empdep();
+	}
+	else if (option == 6)
+	{
+		return;
+	}
+	else
+	{
+		cout << "Expected Options are 1/2/3/4/5";
+		showMenu();
+	}
+}
+
+int main()
+{
+	showMenu();
+	return 0;
+}
